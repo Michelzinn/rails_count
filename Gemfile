@@ -34,6 +34,7 @@ gem "redis", ">= 4.0.1"
 
 gem "view_component"
 
+gem 'byebug'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -54,6 +55,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 group :development do
@@ -69,6 +71,7 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'shoulda-matchers', '~> 4.0'
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
