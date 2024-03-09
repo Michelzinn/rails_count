@@ -1,4 +1,4 @@
-class PersonPayment < ApplicationRecord
+class PersonPayment < ApplicationRecord  #RENOMEAR
   belongs_to :person
-  belongs_to :expense_transaction, class_name: "transaction"
+  belongs_to :expense
 end
