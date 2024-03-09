@@ -10,5 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_09_144004) do
+  create_table "expenses", force: :cascade do |t|
+    t.string "title"
+    t.integer "amount"
+    t.integer "paid_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["paid_by_id"], name: "index_expenses_on_paid_by_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_people_on_group_id"
+  end
+
+  create_table "person_payments", force: :cascade do |t|
+    t.integer "physician_id"
+    t.integer "patient_id"
+    t.datetime "appointment_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_person_payments_on_patient_id"
+    t.index ["physician_id"], name: "index_person_payments_on_physician_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "title"
+    t.integer "amount"
+    t.integer "paid_by_id", null: false
+    t.integer "paid_for_id", null: false
+    t.integer "expense_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expense_id"], name: "index_transactions_on_expense_id"
+    t.index ["paid_by_id"], name: "index_transactions_on_paid_by_id"
+    t.index ["paid_for_id"], name: "index_transactions_on_paid_for_id"
+  end
+
+  add_foreign_key "expenses", "people", column: "paid_by_id"
+  add_foreign_key "people", "groups"
+  add_foreign_key "transactions", "expenses"
+  add_foreign_key "transactions", "people", column: "paid_by_id"
+  add_foreign_key "transactions", "people", column: "paid_for_id"
 end
